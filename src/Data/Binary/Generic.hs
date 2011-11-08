@@ -3,13 +3,27 @@
   , FlexibleInstances
   , TypeOperators
  #-}
-module Data.Binary.Generic (put, get) where
+module Data.Binary.Generic
+( encode
+, decode
+, put
+, get
+) where
 
 import Control.Applicative
 import GHC.Generics
-import Data.Binary hiding (put, get)
+import Data.Binary (Binary, Put, Get)
+import Data.Binary.Get (runGet)
+import Data.Binary.Put (runPut)
+import Data.ByteString.Lazy
 
 import qualified Data.Binary as B
+
+encode :: (Generic a, GBinary (Rep a)) => a -> ByteString
+encode = runPut . put
+
+decode :: (Generic a, GBinary (Rep a)) => ByteString -> a
+decode = runGet get
 
 put :: (Generic a, GBinary (Rep a)) => a -> Put
 put = gput . from
