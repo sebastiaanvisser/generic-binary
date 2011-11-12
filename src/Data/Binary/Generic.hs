@@ -46,7 +46,7 @@ instance (GBinary a, GBinary b) => GBinary (a :*: b) where
 instance (GBinary a, GBinary b) => GBinary (a :+: b) where
   gput (L1 l) = do B.put False; gput l
   gput (R1 r) = do B.put True; gput r
-  gget = B.get >>= \v -> if v then L1 <$> gget else R1 <$> gget
+  gget = B.get >>= \v -> if not v then L1 <$> gget else R1 <$> gget
 
 instance GBinary a => GBinary (M1 D c a) where
   gput = gput . unM1

@@ -1,5 +1,5 @@
 Name:              generic-binary
-Version:           1.0.0
+Version:           1.0.1
 Description:       Generic Data.Binary derivation using GHC generics.
 Synopsis:          Generic Data.Binary derivation using GHC generics.
 Category:          Generics, Data
